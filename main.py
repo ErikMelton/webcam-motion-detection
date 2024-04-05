@@ -68,17 +68,19 @@ def detect_motion(cap):
                 logging.info(f'Started recording to file {detected_motion_at}.avi')
                 outfile = cv2.VideoWriter(f'./recordings/{detected_motion_at}.avi', codec, 20.0, (640, 480))
             else:
-                logging.info(f'Continuing recording to file {detected_motion_at}.avi')
                 frame_rec_count = 0
 
         if detected_motion:
             outfile.write(frame)
+
             frame_rec_count += 1
 
         if frame_rec_count >= (FRAME_RATE * MINIMUM_RECORDING_DURATION_SECONDS):
             logging.info('Stopped recording.')
+
             detected_motion = False
             frame_rec_count = 0
+
             outfile.release()
             outfile = None
 
