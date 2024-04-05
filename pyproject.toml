@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "webcam-motion-detection"
+version = "0.1.0"
+description = ""
+authors = ["Erik Melton <meltonaerik@gmail.com>"]
+readme = "README.md"
+packages = [{include = "webcam_motion_detection"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+opencv-python = "^4.9.0.80"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
