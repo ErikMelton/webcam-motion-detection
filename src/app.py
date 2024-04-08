@@ -3,7 +3,7 @@ import os
 
 import cv2
 
-from recorder.motion import detect_motion
+from tgbot.bot import TelegramBot
 
 
 def run():
@@ -22,7 +22,9 @@ def run():
 
     logging.info('Camera started.')
 
-    detect_motion(cap)
+    token = os.getenv('TELEGRAM_BOT_TOKEN')
+    bot = TelegramBot(token, cap)
+    bot.start()
 
     cap.release()
     cv2.destroyAllWindows()
@@ -31,6 +33,3 @@ def run():
 def setup_dirs():
     if not os.path.exists('./recordings'):
         os.makedirs('./recordings')
-
-
-
