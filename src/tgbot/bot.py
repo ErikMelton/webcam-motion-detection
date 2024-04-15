@@ -74,13 +74,19 @@ class TelegramBot:
 
             self.motion_detector = None
 
-    def motion_sensed(self, timestamp: str):
+    def motion_sensed(self, timestamp: str, frame):
         logging.info('Sending motion detected message...')
 
         message = f'Motion detected at {timestamp}!'
         url = f"https://api.telegram.org/bot{self.token}/sendMessage?chat_id={ME_CHAT_ID}&text={message}"
 
         requests.get(url)
+
+        photo_send_url = f'https://api.telegram.org/bot{self.token}/sendPhoto'
+        params = {'chat_id': ME_CHAT_ID}
+        files = {'photo': frame}
+
+        requests.post(photo_send_url, params=params, files=files)
 
     async def shut_down(self):
         logging.info('Shutting down...')

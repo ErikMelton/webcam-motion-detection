@@ -33,7 +33,6 @@ class MotionDetector(StoppableThread):
 
         while True:
             ret, frame = cap.read()
-            cv2.imshow('frame', frame)
 
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             result = np.abs(np.mean(gray) - last_mean)
@@ -43,7 +42,7 @@ class MotionDetector(StoppableThread):
                 total_frame_count += 1
                 continue
 
-            if result > 0.8:
+            if result > 1.5:
                 # Get the current time in YYYY-MM-DD HH-MM-SS format
                 detected_motion_at = datetime.now().strftime('%Y-%m-%d %H-%M-%S')
                 detected_motion = True
@@ -53,8 +52,9 @@ class MotionDetector(StoppableThread):
                 if frame_rec_count == 0 and not outfile:
                     logging.info(f'Started recording to file {detected_motion_at}.avi')
                     outfile = cv2.VideoWriter(f'./recordings/{detected_motion_at}.avi', codec, 20.0, (640, 480))
+                    frame_file = cv2.imencode('.jpg', frame)[1].tobytes()
 
-                    bot.motion_sensed(detected_motion_at)
+                    bot.motion_sensed(detected_motion_at, frame_file)
                 else:
                     frame_rec_count = 0
 
