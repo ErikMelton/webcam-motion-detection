@@ -11,7 +11,7 @@ python = "^3.9"
 opencv-python = "^4.9.0.80"
 python-telegram-bot = {extras = ["ext"], version = "^21.0.1"}
 python-dotenv = "^1.0.1"
-requests = "^2.31.0"
+requests = "^2.32.0"
 
 
 [build-system]
